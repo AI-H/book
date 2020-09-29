@@ -13,6 +13,7 @@
 ## 根据不同部署形式来配置
 那么prometheus的配置文件如何配置呢？
 下面我们会针对prometheus不同的部署方式来做不同的配置
+
 ### 单机非容器化部署
 官方网站可以找到 [prometheus](https://prometheus.io/download/) 的安装包以及安装方式。
 
@@ -41,7 +42,7 @@
 	prometheus.yml:
 	```yaml
 	scrape_configs:
-    # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+	  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
     - job_name: prome
     static_configs:
     - targets: ['localhost:9090']
@@ -56,12 +57,12 @@
     - node_targets.yml
     # 多就重新加载该文件
     refresh_interval: 10m
-	```
+  ```
 	
 	node_targets.yml文件:
 	```yaml
 	- targets:
-      - localhost:8000
+	    - localhost:8000
       labels:
         # 这样写路径在该配置文件中是不对的，虽然是get请求，在主机板的prometheus可能也行的通
         __metrics_path__: /metrics?hhh=09&asa=ada
@@ -77,10 +78,10 @@
       labels:
         __metrics_path__: /tianjiayige/metrics
         instance: tianjiayige
-	```
+  ```
 	有个需要注意的点：node_targets.yml文件中每一个targets就是一个采集点，在单机版的prometheus如果采集路径写成：/metrics?hhh=09&asa=ada 也许是可以的，主要看后台的服务能不能解析，我后台用的go-gin来写的，就会报404
-所以应该把参数单独提出来写：
-  
+	所以应该把参数单独提出来写：
+
     ```yaml
     __param_<参数名>: <参数值>
     ```
