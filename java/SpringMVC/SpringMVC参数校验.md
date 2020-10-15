@@ -141,6 +141,7 @@ JSR-303定义了一系列的注解用来验证Bean的属性，常用的有以下
 ```
 
 3. 如上所述，在drink类中需要校验的字段上标注对应的控制注解，之后在请求参数处标注注解@Valid 声明该参数需要校验即可
+
 4. 在需要校验的接口中增加参数，**BindingResult result**，框架会将校验的结果放在该对象中，
    1. 该对象包含了所有验证结果
    2. 可以使用提供的两个方法查看
@@ -148,6 +149,37 @@ JSR-303定义了一系列的注解用来验证Bean的属性，常用的有以下
       2. getAllErrors,得到所有错误信息，通常返回FieldError列表
    3. 如果在需要校验的接口参数处没有声明**BindingResult result**参数，则SpringMVC会抛出异常，可以使用全局异常处理。
    4. 对于验证的结果一般都会让框架抛异常出去，但是如果想要自己查看并解决校验结果，可以增加**BindingResult result**对象
+   
+5. 对校验规则的分组
+
+   1. 在使用场景中，可能会遇到这样的情况：当你添加的时候ID可以为空，但是在修改的时候ID又不可以为空，通常不同的业务逻辑，会有不同的验证逻辑，这个应该怎么解决呢
+   2. JSR-303提供了group概念，规定每个校验注解都必须支持，腰间注解用在字段上的时候，可以指明使用的组
+
+   ```java
+   
+   @Data
+	public class AppMonitor {
+
+    public interface Add{}
+
+    @NotNull(groups = Add.class)
+    private Long id;
+    private String  name;
+    
+}
+   ```
+   
+   3. 使用：在controller只需要给方法加上@Validated 即可触发一次校验
+   
+   ```java
+   @PatchMapping("app")
+       public Response<AppMonitor> updateOneApp(@RequestParam String userTokenId,@Validated(AppMonitor.Add.class) AppMonitor appMonitor){
+   
+           return null;
+       }
+   ```
+   
+   
 
 ### 框架的高级用法
 
