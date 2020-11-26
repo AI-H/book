@@ -71,6 +71,7 @@ management:
 如图所示，可以看到直接展示内存，垃圾回收等相关的指标数据
 ![springboot-1.x-metrics](./图片/springboot-1.x-metrics.png)
 
+
 #### prometheus端点
 
 springboot内置有prometheus端口，但是需要额外的采集器来支持这个端口的数据，使用如下：
