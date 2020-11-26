@@ -27,6 +27,7 @@
 
 #### metrics端点
 - 依赖：
+
 ```pom
 <dependency>
     <groupId>org.springframework.boot</groupId>
@@ -36,27 +37,27 @@
    <groupId>org.springframework.boot</groupId>
    <artifactId>spring-boot-starter-actuator</artifactId>
 </dependency>
-
 ```
 
 - 配置文件
 
+	1. 要想访问需要将端口设置为非敏感
 
-1. 要想访问需要将端口设置为非敏感
-```yml
-endpoints:
-  metrics:  # 配置该端口得配置
-    enabled: true   # 打开该端口
-    sensitive: false # 设置不是敏感数据，可以免保护直接访问
-```
+    ```yml
+    endpoints:
+      metrics:  # 配置该端口得配置
+        enabled: true   # 打开该端口
+        sensitive: false # 设置不是敏感数据，可以免保护直接访问
+    ```
 
-2. 直接把安全保护关掉，所有得端口都能访问
+	2. 直接把安全保护关掉，所有得端口都能访问
 
-```yml
-management:
-  security:
-    enabled: false
-```
+    ```yml
+    management:
+      security:
+        enabled: false
+    ```
+
 以上配置二选一，还可以使用其他配置指定额外的管理端口来 如下：
 
 ```yml
@@ -126,27 +127,26 @@ public class DockerDemoApplication    {
 
 
 - 配置文件
+	1. 要想访问需要将端口设置为非敏感
+	```yml
+	endpoints:
+	  metrics:  # 配置该端口得配置
+	    enabled: true   # 打开该端口
+	    sensitive: false # 设置不是敏感数据，可以免保护直接访问
+	  prometheus:
+	#    path: prometheus-metrics  # 可以重写该端口的路径
+	    enabled: true
+	    sensitive: false
+	```
+	
+	2. 直接把安全保护关掉，所有得端口都能访问
+	
+	```yml
+	management:
+	  security:
+	    enabled: false
+	```
 
-
-1. 要想访问需要将端口设置为非敏感
-```yml
-endpoints:
-  metrics:  # 配置该端口得配置
-    enabled: true   # 打开该端口
-    sensitive: false # 设置不是敏感数据，可以免保护直接访问
-  prometheus:
-#    path: prometheus-metrics  # 可以重写该端口的路径
-    enabled: true
-    sensitive: false
-```
-
-2. 直接把安全保护关掉，所有得端口都能访问
-
-```yml
-management:
-  security:
-    enabled: false
-```
 以上配置二选一，还可以使用其他配置指定额外的管理端口来 如下：
 
 ```yml
@@ -160,9 +160,11 @@ management:
 如图所示，可以看到很多指标，该指标是prometheus风格的指标
 ![springboot-1.x-prometheus](./图片/springboot-1.x-prometheus.png)
 
+**[指标解释](https://prometheus.io/docs/concepts/metric_types/) ：**
 
 HELP 代表了指标的定义含义
 TYPE 定义了指标属于什么类型，有四种类型，
+
 1. Counter
 
 
@@ -222,7 +224,7 @@ management:
 访问http://localhost:8081/actuator/metrics 如下图所示
 springboot2.x 暴漏出来的数据跟springboot1.x有点不同，如图所示，springboot2.x metrics端点只展示能展示的指标值，并不展示具体的值，具体的值如何去看还需要在进一步。
 
-比如我想要看  jvm.memory.max 数据，就需要访问 http://localhost:8081/actuator/metrics/jvm.memory.max 这个端点来获取，在/metrics的后面加上  /想看的指标name
+比如我想要看  **jvm.memory.max** 数据，就需要访问 http://localhost:8081/actuator/metrics/jvm.memory.max 这个端点来获取，在/metrics的后面加上  /想看的指标name
 
 ![springboot-2.x-metrics](./图片/springboot-2.x-metrics.png)
 
@@ -231,7 +233,7 @@ springboot2.x 暴漏出来的数据跟springboot1.x有点不同，如图所示�
 
 跟springboot1.x一样，springboot内部是没有prometheus采集的实现的，可以发现我们在配置文件重暴漏了prometheus端口也是访问不到的。因为没有被支持，所以我们需要增加额外的配置来支持prometheus端点。
 
-在此我们使用千分尺来支持，也是springboot官方推荐的。
+在此我们使用 **[千分尺](https://micrometer.io/docs)** 来支持，也是springboot官方推荐的。
 
 - 依赖：
 
