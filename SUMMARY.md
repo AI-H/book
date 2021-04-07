@@ -1,25 +1,27 @@
-# Table of contents
+# Summary
 
 * [Introduction](README.md)
-* [Springmvc](springmvc_01/README.md)
-  * [Springmvc基础用法](springmvc_01/springmvc_01.md)
-  * [Springmvc上传文件](springmvc_01/springmvc_02.md)
-  * [过滤器全局解析token](springmvc_01/guo-lv-qi-quan-ju-jie-xi-token.md)
-  * [Springmvc参数校验](springmvc_01/springmvc-can-shu-xiao-yan.md)
-* [springboot](springboot/README.md)
-  * [springboot-开放监控端口](springboot/ji-yu-springboot-jian-kong-java-xiang-mu-xiang-guan-zhi-biao.md)
-* [设计模式](she-ji-mo-shi/README.md)
-  * [单例模式](she-ji-mo-shi/she-ji-mo-shi-dan-li-mo-shi-yi.md)
-  * [原型模式](she-ji-mo-shi/she-ji-mo-shi-yuan-xing-mo-shi-er.md)
-  * [工厂方法模式](she-ji-mo-shi/she-ji-mo-shi-gong-chang-fang-fa-mo-shi-san.md)
-  * [抽象工厂模式](she-ji-mo-shi/she-ji-mo-shi-chou-xiang-gong-chang-mo-shi-si.md)
-  * [生成器（建造者）模式](she-ji-mo-shi/she-ji-mo-shi-sheng-cheng-qi-jian-zao-zhe-mo-shi-wu.md)
-  * [代理设计模式](she-ji-mo-shi/she-ji-mo-shi-dai-li-she-ji-mo-shi-liu.md)
-* [prometheus](prometheus/README.md)
-  * [prometheus配置额外的采集点](prometheus/prometheus-pei-zhiewai-de-zhu-ji-cai-ji.md)
-  * [多集群监控thanos](prometheus/thanos.md)
-* [alertmanager](alertmanager/README.md)
-  * [常见开源告警系统对比分析](alertmanager/chang-jian-kai-yuan-gao-jing-xi-tong-dui-bi-fen-xi.md)
-* [other](other/README.md)
-  * [时间管理](other/shi-jian-guan-li-fen-xiang.md)
+* [Springmvc](./java/SpringMVC/SpringMVC_01.md)
+    * [Springmvc基础用法](./java/SpringMVC/SpringMVC_01.md)
+    * [Springmvc上传文件](./java/SpringMVC/springmvc_02.md)
+    * [过滤器全局解析token](./java/SpringMVC/过滤器全局解析token.md)
+    * [Springmvc参数校验](./java/SpringMVC/SpringMVC参数校验.md)
+* springboot
+	* [springboot-开放监控端口](./java/monitor/基于springboot监控java项目相关指标.md) 
+* 设计模式
+	* [单例模式](./design-mode/设计模式--单例模式（一）.md)
+	* [原型模式](./design-mode/设计模式---原型模式（二）.md)
+	* [工厂方法模式](./design-mode/设计模式--工厂方法模式（三）.md)
+	* [抽象工厂模式](./design-mode/设计模式--抽象工厂模式（四）.md)
+	* [生成器（建造者）模式](./design-mode/设计模式--生成器（建造者）模式（五）.md)
+	* [代理设计模式](./design-mode/设计模式---代理设计模式（六）.md)
 
+* prometheus
+	* [prometheus配置额外的采集点](./cloud/prometheus/prometheus配置额外的主机采集.md) 
+	* [多集群监控thanos](./cloud/thanos/thanos.md) 
+
+* alertmanager
+	* [常见开源告警系统对比分析](./cloud/alertmanager/alert-system-chose/常见开源告警系统对比分析.md)
+
+* other
+	* [时间管理](./other/TimeManager/时间管理分享.md) 
