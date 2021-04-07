@@ -197,6 +197,6 @@ serverFiles:
 配置好后，可以在集群重看到一个configmap,名称为：prometheus-server,该配置文件中有多个文件，里面就包含我们添加的node_targets.yml以及prometheus.yml，之后如果修改添加采集点，直接修改这两个文件即可
 
 ## 总结
-prometheus的额外采集配置，无论那种部署形式都是支持的，通过修改prometheus.yml文件是最直接的，如果采集点多可以通过额外的文件来保存这些采集点，并把该文件配置到prometheus.yml文件中去，不知道如何配置prometheus.yml的话，这里有一个官方的示例：[prometheus.yml(https://github.com/prometheus/prometheus/blob/master/config/testdata/conf.good.yml)
+prometheus的额外采集配置，无论那种部署形式都是支持的，通过修改prometheus.yml文件是最直接的，如果采集点多可以通过额外的文件来保存这些采集点，并把该文件配置到prometheus.yml文件中去，不知道如何配置prometheus.yml的话，这里有一个官方的示例：[prometheus.yml](https://github.com/prometheus/prometheus/blob/master/config/testdata/conf.good.yml)
 
 prometheus-operator可以通过添加自定义crd的形式以及添加secret的形式添加额外采集配置，这个可能会比较普遍一些，prometheus-operator肯定还有其他的一些配置形式，日后用到也会分享出来。

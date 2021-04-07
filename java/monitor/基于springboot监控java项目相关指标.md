@@ -23,6 +23,8 @@
 
 上文已经说过对于springboot来说 1.x版本和2.x已经不同了，所以接下来如何配置我会区别开来说
 
+prometheus端点的配置，兼容metrics端点。
+
 ### springboot1.x
 
 #### metrics端点
