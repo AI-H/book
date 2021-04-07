@@ -1,6 +1,6 @@
-# 设计模式（二）---原型模式
+# 原型模式
 
-[toc]
+\[toc\]
 
 ## 原型设计模式是什么
 
@@ -19,7 +19,7 @@
 
 在java代码中的实现一般都是实现Cloneable接口，重写一下clone方法就行了，使用很简单
 
-~~~java
+```java
 **
  * 原型模式java实现
  * @author 飞客不去
@@ -42,8 +42,7 @@ public class DragonGod implements Cloneable{
         return null;
     }
 }
-
-~~~
+```
 
 ```java
 /**
@@ -70,13 +69,12 @@ public class XiaoDu {
     public static void main(String[] args) {
 
         PhoenixDragonGod phoenixDragonGod = new PhoenixDragonGod();
-        
+
         PhoenixDragonGod clone = (PhoenixDragonGod)phoenixDragonGod.clone();
         System.out.println("原型："+phoenixDragonGod);
         System.out.println("复制："+clone);
     }
 }
-
 ```
 
 打印结果：会发现两个地址值不一样
@@ -85,8 +83,6 @@ public class XiaoDu {
 原型：com.feikebuqu.designmode.prototypePattern.PhoenixDragonGod@49476842
 复制：com.feikebuqu.designmode.prototypePattern.PhoenixDragonGod@78308db1
 ```
-
-
 
 ### 使用问题
 
@@ -97,4 +93,6 @@ public class XiaoDu {
 5. 原型模式的使用场景和条件跟单例模式适用的场景和需求相反
 
 ### 代码地址
+
 [原型模式](https://github.com/AI-H/design-mode/tree/master/src/main/java/com/feikebuqu/designmode/prototypePattern)
+

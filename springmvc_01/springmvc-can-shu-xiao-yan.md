@@ -1,19 +1,22 @@
-# SpringMVC参数校验
-[toc]
+# Springmvc参数校验
+
+\[toc\]
 
 ### springMVC 的基本参数校验
+
 ### 使用@RequestParam 注解控制请求参数
+
 1. 在写控制层的接口时，我们需要对前端或者接口访问者进行访问参数的校验，如果将参数的校验逻辑写到控制层的代码里，会造成代码重复，资源浪费，不美观。
 2. 对于控制层接口的基本类型方法参数，我们可以用注解控制，一般都是GET方法居多
 3. 相配合的还需要一个自定义的全局错误返回处理，这样就可以完全的自定义了
 
 例如:
+
 ```java
-	@GetMapping("/hello")
+    @GetMapping("/hello")
     public Response sayHello(@RequestParam String hello,long start) {
         return Response.success(hello);
     }
-
 ```
 
 ```java
@@ -45,90 +48,95 @@
    public @interface RequestParam {
        @org.springframework.core.annotation.AliasFor("name")
        java.lang.String value() default "";
-   
+
        @org.springframework.core.annotation.AliasFor("value")
        java.lang.String name() default "";
-   
+
        boolean required() default true;
-   
+
        java.lang.String defaultValue() default "\n\t\t\n\t\t\n\uE000\uE001\uE002\n\t\t\t\t\n";
    }
    ```
 
-   - 以上是@RequestParam注解的声明，可以看到由四个属性组成，name和value相当于同一个，也就是可用的有三个
-   - name(value)：标识该参数的名称，也就是访问接口时需要传的参数名称，默认是接口定义时的参数名，对应上述的hello,但可以通过该属性覆盖重写参数名  **@RequestParam(name="hi") String hello**此时访问接口传参名得是hi
-   - required:标识该参数是不是必须参数，默认是true就是必传，如果没有该参数就会报错，如果改为false,则该参数不是必须，可以不传
-   - defaultValue() : 当访问接口时，该参数没有传的话，就给与一个默认的值
+   * 以上是@RequestParam注解的声明，可以看到由四个属性组成，name和value相当于同一个，也就是可用的有三个
+   * name\(value\)：标识该参数的名称，也就是访问接口时需要传的参数名称，默认是接口定义时的参数名，对应上述的hello,但可以通过该属性覆盖重写参数名  **@RequestParam\(name="hi"\) String hello**此时访问接口传参名得是hi
+   * required:标识该参数是不是必须参数，默认是true就是必传，如果没有该参数就会报错，如果改为false,则该参数不是必须，可以不传
+   * defaultValue\(\) : 当访问接口时，该参数没有传的话，就给与一个默认的值
 
    ```java
    @GetMapping("/hello")
    //当hello参数没传的时候，默认给hello一个值，defaultValue 与required的值无关
-       public String sayHello(@RequestParam(defaultValue = "asasasasa") 	String hello) {
+       public String sayHello(@RequestParam(defaultValue = "asasasasa")     String hello) {
            return hello;
        }
    ```
 
-   - defaultValue 与required的值无关，当required为true时，配置了defaultValue，即便不传hello的值，依然可以访问成功，返回值为 asasasasa
+   * defaultValue 与required的值无关，当required为true时，配置了defaultValue，即便不传hello的值，依然可以访问成功，返回值为 asasasasa
 
 ## 使用JSR-303验证框架
 
 spring boot 支持JSR-303、Bean验证框架，默认实现用的是 Hibernate validator。在Spring MVC中，只需要使用@Valid注解标注在方法参数商，Spring Boot即可对参数对象进行校验，校验结果会放在BindingResult对象中。
 
 ### 如何使用验证框架
-#### 相关注解
-JSR-303定义了一系列的注解用来验证Bean的属性，常用的有以下几种，用于标注在被校验对象的类字段之上。全部注解可以参考[*JSR 303* – Bean Validation](https://beanvalidation.org/2.0/spec/#builtinconstraints)
 
-- 对于空的检查
-  - @Null：验证对象是否为空；
-  - @NotNull：验证对象不为空；
-  - @NotBlank：验证字符串不为空或者不是空字符串，比如""和“    ”都会验证失败；
-  - @NotEmpty：验证对象部位null，或者集合不为空。
-- 长度的检查：
-  - @Size(min= ,max=)：验证对象长度，可支持字符串、集合；
-  - @Length：字符串的大小。
-- 数值检测：
-  - @Min：验证数字是否大于等于指定的值；
-  - @Max：验证数字是否小于等于指定的值；
-  - @Digits：验证数字是否符合指定格式，如@Digits(integer=9,fraction=2)表示，数字要求必须是小数点前有9位，小数点后有2位;
-  - @Range：验证数字是否在指定范围内，如@Range(min=1,max=1000)。
-- 其他：
-  - @Email：验证是否为邮件格式，为null则不做校验；
-  - @Pattern：验证String对象是否符合正则表达式的规则。
-- 注解依赖的包：
+#### 相关注解
+
+JSR-303定义了一系列的注解用来验证Bean的属性，常用的有以下几种，用于标注在被校验对象的类字段之上。全部注解可以参考[_JSR 303_ – Bean Validation](https://beanvalidation.org/2.0/spec/#builtinconstraints)
+
+* 对于空的检查
+  * @Null：验证对象是否为空；
+  * @NotNull：验证对象不为空；
+  * @NotBlank：验证字符串不为空或者不是空字符串，比如""和“    ”都会验证失败；
+  * @NotEmpty：验证对象部位null，或者集合不为空。
+* 长度的检查：
+  * @Size\(min= ,max=\)：验证对象长度，可支持字符串、集合；
+  * @Length：字符串的大小。
+* 数值检测：
+  * @Min：验证数字是否大于等于指定的值；
+  * @Max：验证数字是否小于等于指定的值；
+  * @Digits：验证数字是否符合指定格式，如@Digits\(integer=9,fraction=2\)表示，数字要求必须是小数点前有9位，小数点后有2位;
+  * @Range：验证数字是否在指定范围内，如@Range\(min=1,max=1000\)。
+* 其他：
+  * @Email：验证是否为邮件格式，为null则不做校验；
+  * @Pattern：验证String对象是否符合正则表达式的规则。
+* 注解依赖的包：
 
 ```java
-		<dependency>
-			<groupId>jakarta.validation</groupId>
-			<artifactId>jakarta.validation-api</artifactId>
-			<version>2.0.2</version>
-		</dependency>
+        <dependency>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+            <version>2.0.2</version>
+        </dependency>
 ```
-
-
 
 #### 如何使用
 
 1. 首先在需要校验的类中字段上标注需要的注解
 
-   ```java
-   /**
-    * @author 飞客不去
-    */
-   @Data
-   public class Drink {
-   
-   
-       @NotNull
-       private String name;
-   
-       @Size(min = 1,max = 10000)
-       private String describ;
-   
-       @Digits(integer = 2,fraction = 2)
-       private Double price;
-   }
-   ```
+   \`\`\`java /\*\*
 
+   * @author 飞客不去
+
+     \*/
+
+     @Data
+
+     public class Drink {
+
+```text
+   @NotNull
+   private String name;
+
+   @Size(min = 1,max = 10000)
+   private String describ;
+
+   @Digits(integer = 2,fraction = 2)
+   private Double price;
+```
+
+}
+
+```text
 2. 之后在请求参数处标注上校验注解：
 
 ```java
@@ -140,46 +148,33 @@ JSR-303定义了一系列的注解用来验证Bean的属性，常用的有以下
     }
 ```
 
-3. 如上所述，在drink类中需要校验的字段上标注对应的控制注解，之后在请求参数处标注注解@Valid 声明该参数需要校验即可
-
-4. 在需要校验的接口中增加参数，**BindingResult result**，框架会将校验的结果放在该对象中，
-   1. 该对象包含了所有验证结果
-   2. 可以使用提供的两个方法查看
-      1. hasErrors,判断验证是否通过；
-      2. getAllErrors,得到所有错误信息，通常返回FieldError列表
-   3. 如果在需要校验的接口参数处没有声明**BindingResult result**参数，则SpringMVC会抛出异常，可以使用全局异常处理。
-   4. 对于验证的结果一般都会让框架抛异常出去，但是如果想要自己查看并解决校验结果，可以增加**BindingResult result**对象
-   
-5. 对校验规则的分组
+1. 如上所述，在drink类中需要校验的字段上标注对应的控制注解，之后在请求参数处标注注解@Valid 声明该参数需要校验即可
+2. 在需要校验的接口中增加参数，**BindingResult result**，框架会将校验的结果放在该对象中， 1. 该对象包含了所有验证结果 2. 可以使用提供的两个方法查看 1. hasErrors,判断验证是否通过； 2. getAllErrors,得到所有错误信息，通常返回FieldError列表 3. 如果在需要校验的接口参数处没有声明**BindingResult result**参数，则SpringMVC会抛出异常，可以使用全局异常处理。 4. 对于验证的结果一般都会让框架抛异常出去，但是如果想要自己查看并解决校验结果，可以增加**BindingResult result**对象
+3. 对校验规则的分组
 
    1. 在使用场景中，可能会遇到这样的情况：当你添加的时候ID可以为空，但是在修改的时候ID又不可以为空，通常不同的业务逻辑，会有不同的验证逻辑，这个应该怎么解决呢
    2. JSR-303提供了group概念，规定每个校验注解都必须支持，腰间注解用在字段上的时候，可以指明使用的组
 
-   ```java
-   
-   @Data
-	public class AppMonitor {
+   \`\`\`java
 
-    public interface Add{}
+   @Data public class AppMonitor {
 
-    @NotNull(groups = Add.class)
-    private Long id;
-    private String  name;
-    
+   public interface Add{}
+
+   @NotNull\(groups = Add.class\) private Long id; private String name;
+
 }
-   ```
-   
+
+```text
    3. 使用：在controller只需要给方法加上@Validated 即可触发一次校验
-   
+
    ```java
    @PatchMapping("app")
        public Response<AppMonitor> updateOneApp(@RequestParam String userTokenId,@Validated(AppMonitor.Add.class) AppMonitor appMonitor){
-   
+
            return null;
        }
-   ```
-   
-   
+```
 
 ### 框架的高级用法
 
@@ -198,7 +193,7 @@ JSR-303定义了一系列的注解用来验证Bean的属性，常用的有以下
    ```java
    @PostMapping("/food")
        public String addFood(@Valid Food food){
-   
+
            return food.getDrink().getName();
        }
    ```
@@ -206,11 +201,8 @@ JSR-303定义了一系列的注解用来验证Bean的属性，常用的有以下
    只需要在参数对象内部的对象引用字段上加上@Valid注解即可，此时框架就会对Food 内部的Drink类也会做校验了，不加则不会做校验，即便Drink内部也有校验注解。
 
 2. 对于同一个Drink类，可能不同的接口需要做的校验类型不同，那么总不能一个接口可以用，另一个接口就不能在用了吧。
-
    1. 对于这个情况，一般都会有解决方法，不会说只试用单个，那么就没什么扩展的意义。
-
    2. 这个情况可以类似于我们之前说的@Jsonview，这是可以分组的，不过要加上一个注解@Validate
-
    3. 具体实施如下
 
       1. 在参数类的内部新建接口用于分组，
@@ -221,37 +213,30 @@ JSR-303定义了一系列的注解用来验证Bean的属性，常用的有以下
 
       1. 实体类（参数类）
 
-      ```java
-      @Data
-      public class Drink {
-          public interface Update{}
-          public interface Add{}
-      
-      
-          @NotNull(groups = {Update.class,Add.class})
-          private String name;
-      
-          @Size(min = 1,max = 10000,groups = {Add.class})
-          @NotNull(groups = {Update.class})
-          private String describ;
-      
-          @Digits(integer = 2,fraction = 2)
-          private Double price;
+      \`\`\`java @Data public class Drink { public interface Update{} public interface Add{}
+
+```text
+      @NotNull(groups = {Update.class,Add.class})
+      private String name;
+
+      @Size(min = 1,max = 10000,groups = {Add.class})
+      @NotNull(groups = {Update.class})
+      private String describ;
+
+      @Digits(integer = 2,fraction = 2)
+      private Double price;
+  }
+  ```
+
+  2. 接口定义：
+
+  ```java
+  @PostMapping("/updatedrink")
+      public String updateDrink(@Validated(Drink.Add.class) Drink drink){
+          return drink.getName();
       }
-      ```
-
-      2. 接口定义：
-
-      ```java
-      @PostMapping("/updatedrink")
-          public String updateDrink(@Validated(Drink.Add.class) Drink drink){
-              return drink.getName();
-          }
-      ```
-
-      
-
-
+  ```
+```
 
 ### 框架的扩展
 
@@ -263,12 +248,12 @@ JSR-303定义了一系列的注解用来验证Bean的属性，常用的有以下
 
 1. 举例说明自定义注解的实现：我们需要一个自定义注解来校验货物的库存
 
-```java 
+```java
 @Stock
 private int weight;
 ```
 
-2. 自定义注解如下格式
+1. 自定义注解如下格式
 
 ```java
 @Target({ElementType.METHOD, ElementType.FIELD,  ElementType.ANNOTATION_TYPE})
@@ -284,16 +269,14 @@ public @interface Stock {
 }
 ```
 
-- 自定义注解Stock跟其他注解差不多，作用就是如果属性值小于min的话，就会报错。
-
-- 需要提供一个@Constraint来说明需要什么类来验证注解
-- 验证注解必须要包含以下几个属性
-  - message,用于创建错误细腻些，支持表达式，如库存不能低于{min}个
-  - groups,验证规则分组
-  - payload,定义了验证的有效负荷
-  - 后两个可以自行琢磨怎么使用，也可以不使用
-
-3. 新建一个StockValidator类来验证注解
+* 自定义注解Stock跟其他注解差不多，作用就是如果属性值小于min的话，就会报错。
+* 需要提供一个@Constraint来说明需要什么类来验证注解
+* 验证注解必须要包含以下几个属性
+  * message,用于创建错误细腻些，支持表达式，如库存不能低于{min}个
+  * groups,验证规则分组
+  * payload,定义了验证的有效负荷
+  * 后两个可以自行琢磨怎么使用，也可以不使用
+* 新建一个StockValidator类来验证注解
 
 ```java
 /**
@@ -320,18 +303,11 @@ public class StockValidator implements ConstraintValidator<Stock,Integer>{
 }
 ```
 
-- StockValidator类必须实现ConstraintValidator接口initialize方法以及验证方法isValid
-
-- 具体的校验逻辑在isValid方法中做校验
-- 其他参数可以自行琢磨，不在本篇的介绍中，这个程度至少自己就够用了
-
-
+* StockValidator类必须实现ConstraintValidator接口initialize方法以及验证方法isValid
+* 具体的校验逻辑在isValid方法中做校验
+* 其他参数可以自行琢磨，不在本篇的介绍中，这个程度至少自己就够用了
 
 ### 结语
 
 写博客是为了记录自己的学习，也是分享给大家自己的问题解决，如果能帮上看到这个博客的人时最好的了，且写且珍惜。
-
-
-
-
 
