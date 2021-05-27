@@ -20,6 +20,7 @@
 	* [prometheus配置额外的采集点](./cloud/prometheus/prometheus配置额外的主机采集.md) 
 	* [多集群监控thanos](./cloud/thanos/thanos.md) 
 	* [prometheus-storage](./cloud/prometheus-storage/prometheus-storage.md)
+	* [prometheus-HA](./cloud/prometheus-HA/prometheus-HA.md)
 
 * alertmanager
 	* [常见开源告警系统对比分析](./cloud/alertmanager/alert-system-chose/常见开源告警系统对比分析.md)
