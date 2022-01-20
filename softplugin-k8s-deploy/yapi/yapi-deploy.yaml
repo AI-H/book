@@ -230,7 +230,7 @@ spec:
             - key: kubernetes.io/hostname
               operator: In
               values:
-                - 172-16-22-72
+                - 172-999-999-999
 
 ---
 apiVersion: storage.k8s.io/v1
